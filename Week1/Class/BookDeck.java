@@ -50,8 +50,14 @@ public class BookDeck {
 
     // 2) Key로 조회
     public Books find_book(){
-        System.out.print("검색할 Key를 입력하세요 : ");
         Books book = null;
+        
+        if (book_list.isEmpty()){
+            System.out.println("내용이 없습니다.");
+            return null;
+        }
+        
+        System.out.print("검색할 Key를 입력하세요 : ");
         try{
             UUID find_id = UUID.fromString(scan.next());
             book = book_list.stream().filter(b -> b.getKey().equals(find_id)).findFirst().orElse(null);
@@ -59,10 +65,7 @@ public class BookDeck {
             System.out.println("Key 형식을 확인하세요.");
             return null;
         }
-        if (book_list.isEmpty()){
-            System.out.println("내용이 없습니다.");
-            return null;
-        }
+
         if(book != null){
             book.print();
         }else{
