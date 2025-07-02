@@ -20,8 +20,12 @@ public class BookDeck {
 
     // 초기 데이터 설정 -> 테스트
     public BookDeck(){
-        book_list.add(new Books("qqq", "www", "eee"));
-        book_list.add(new Books("aaa", "bbb", "ccc"));
+        String[] test1 = {"책1", "작성자1", "소설"};
+        String[] test2 = {"책2", "작성자2", "국문학"};
+        String[] test3 = {"책3", "작성자3", "영문학"};
+        book_list.add(new Books(test1));
+        book_list.add(new Books(test2));
+        book_list.add(new Books(test3));
     }
 
     // 메뉴
@@ -47,12 +51,18 @@ public class BookDeck {
     // 2) Key로 조회
     public Books find_book(){
         System.out.print("검색할 Key를 입력하세요 : ");
-        UUID find_id = UUID.fromString(scan.next());
+        Books book = null;
+        try{
+            UUID find_id = UUID.fromString(scan.next());
+            book = book_list.stream().filter(b -> b.getKey().equals(find_id)).findFirst().orElse(null);
+        }catch (IllegalArgumentException e){
+            System.out.println("Key 형식을 확인하세요.");
+            return null;
+        }
         if (book_list.isEmpty()){
             System.out.println("내용이 없습니다.");
             return null;
         }
-        Books book = book_list.stream().filter(b -> b.getKey().equals(find_id)).findFirst().orElse(null);
         if(book != null){
             book.print();
         }else{
@@ -76,42 +86,57 @@ public class BookDeck {
     // 수정
     public void update(){
         show_all();
+        boolean check = false;
         Books book = find_book();
         if(book != null){
-            for(int i = 0; i < title.length; i++){
-                System.out.println(title[i] + " 수정 - " + i);
+            while(!check){
+                for(int i = 0; i < title.length; i++){
+                    System.out.println(title[i] + " 수정 - " + i);
+                }
+                System.out.println("돌아가기. 3");
+                String number = scan.next();
+    
+                switch (number) {
+                    case "0":
+                        System.out.println(title[0] + " 수정합니다. ");
+                        System.out.println("기존 : " + book.getBook_name());
+                        System.out.print("수정할 내용 : ");
+                        book.setBook_name(scan.next());
+                        break;
+                
+                    case "1":
+                        System.out.println(title[1] + " 수정합니다. ");
+                        System.out.println("기존 : " + book.getBook_name());
+                        System.out.print("수정할 내용 : ");
+                        book.setAuthor(scan.next());
+                        break;
+    
+                    case "2":
+                        System.out.println(title[2] + " 수정합니다. ");
+                        System.out.println("기존 : " + book.getBook_name());
+                        System.out.print("수정할 내용 : ");
+                        book.setType(scan.next());
+                        break;
+                    case "3":
+                        System.out.println("메뉴로 돌아갑니다.");
+                        check = true;
+                    default:
+                        System.out.println("번호를 확인하세요.");
+                }
             }
-            int number = scan.nextInt();
-
-            switch (number) {
-                case 0:
-                    System.out.println(title[0] + " 수정합니다. ");
-                    System.out.println("기존 : " + book.getBook_name());
-                    System.out.print("수정할 내용 : ");
-                    book.setBook_name(scan.next());
-                    break;
-            
-                case 1:
-                    System.out.println(title[1] + " 수정합니다. ");
-                    System.out.println("기존 : " + book.getBook_name());
-                    System.out.print("수정할 내용 : ");
-                    book.setAuthor(scan.next());
-                    break;
-
-                case 2:
-                    System.out.println(title[2] + " 수정합니다. ");
-                    System.out.println("기존 : " + book.getBook_name());
-                    System.out.print("수정할 내용 : ");
-                    book.setType(scan.next());
-                    break;
-            }
+        }else{
+            System.out.println("Key값을 확인하세요.");
         }
     }
 
     // 삭제
     public void delete(){
         Books book = find_book();
-        if(book != null) book_list.remove(book);
+        if(book != null){
+            book_list.remove(book);
+        }else{
+            System.out.println("Key값을 확인하세요.");
+        }
         System.out.println("삭제 되었습니다.");
         show_all();
     }

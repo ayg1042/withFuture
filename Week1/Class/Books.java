@@ -18,17 +18,10 @@ public class Books {
 		this.key = UUID.randomUUID();
 	}
 
-	public Books(String author, String book_name, String type){
-        this.key = UUID.randomUUID();
-        this.author = author;
-        this.book_name = book_name;
-        this.type = type;
-    }
-
 	public Books(String[] titles){
 		this.key = UUID.randomUUID();
-        this.author = titles[0];
-        this.book_name = titles[1];
+        this.book_name = titles[0];
+        this.author = titles[1];
         this.type = titles[2];
 	}
 
