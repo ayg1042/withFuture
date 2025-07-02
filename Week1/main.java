@@ -15,25 +15,27 @@ public class main {
         BookDeck bd = new BookDeck();
         while(status){
             switch(bd.main_menu()){
-                case 1:
+                case "1":
                     bd.show_all();
                     break;
-                case 2:
+                case "2":
                     bd.find_book();
                     break;
-                case 3:
+                case "3":
                     bd.add_book();
                     break;
-                case 4:
-                    System.out.println("4");
+                case "4":
+                    bd.update();
                     break;
-                case 5:
-                    System.out.println("5");
+                case "5":
+                    bd.delete();
                     break;
-                case 0:
+                case "0":
                     System.out.println("0");
                     status = false;
                     break;
+                default:
+                    System.out.println("번호 확인하세요");
             }
         }
 

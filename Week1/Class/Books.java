@@ -14,12 +14,23 @@ public class Books {
 // (ex : 책 번호, 책 id, 책 이름, 책 요약 명 등)의 갯수 역시 자유롭게
 // 진행하시되 3개 이상 권장
 
-    public Books(String author, String book_name, String type){
+    public Books(){
+		this.key = UUID.randomUUID();
+	}
+
+	public Books(String author, String book_name, String type){
         this.key = UUID.randomUUID();
         this.author = author;
         this.book_name = book_name;
         this.type = type;
     }
+
+	public Books(String[] titles){
+		this.key = UUID.randomUUID();
+        this.author = titles[0];
+        this.book_name = titles[1];
+        this.type = titles[2];
+	}
 
     public void print(){
         System.out.println("Key : " + this.key + ", 제목 : " + this.book_name + ", 제작자 : " + this.author + ", 타입(장르, 종류) : " + this.type);
