@@ -1,4 +1,4 @@
-package Week1.Class;
+package Week2.Class;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,10 +46,11 @@ public class BookDeck {
             System.out.println("내용이 없습니다.");
             return ;
         }else{
-            for(Books b : book_list){
-                b.print();
-            }
-            // book_list.stream().forEach(b -> b.print());
+            // 기존 코든
+            // for(Books b : book_list){
+            //     b.print();
+            // }
+            book_list.stream().forEach(b -> b.print());
         }
     }
 
@@ -82,17 +83,16 @@ public class BookDeck {
     public void add_book(){
         String[] titles = new String[title.length];
 
-        for(int i = 0; i < title.length; i++){
-            System.out.print(title[i] + " : ");
-            titles[i] = scan.next();
-        }
-
-        // title.stream(); // Cannot invoke stream() on the array type String[]
-        
-        // IntStream.range(0, title.length).forEach( i -> {
-        //     System.out.println(title[i] + " : ");
+        // 기존 코드
+        // for(int i = 0; i < title.length; i++){
+        //     System.out.print(title[i] + " : ");
         //     titles[i] = scan.next();
-        // });
+        // }
+
+        IntStream.range(0, title.length).forEach( i -> {
+            System.out.println(title[i] + " : ");
+            titles[i] = scan.next();
+        });
 
         book_list.add(new Books(titles));
 
@@ -105,9 +105,15 @@ public class BookDeck {
         Books book = find_book();
         if(book != null){
             while(!check){
-                for(int i = 0; i < title.length; i++){
+                // 기존 코드
+                // for(int i = 0; i < title.length; i++){
+                //     System.out.println(title[i] + " 수정 - " + i);
+                // }
+
+                IntStream.range(0, title.length).forEach(i -> {
                     System.out.println(title[i] + " 수정 - " + i);
-                }
+                });
+
                 System.out.println("돌아가기. 3");
                 String number = scan.next();
     
@@ -121,14 +127,14 @@ public class BookDeck {
                 
                     case "1":
                         System.out.println(title[1] + " 수정합니다. ");
-                        System.out.println("기존 : " + book.getBook_name());
+                        System.out.println("기존 : " + book.getAuthor());
                         System.out.print("수정할 내용 : ");
                         book.setAuthor(scan.next());
                         break;
     
                     case "2":
                         System.out.println(title[2] + " 수정합니다. ");
-                        System.out.println("기존 : " + book.getBook_name());
+                        System.out.println("기존 : " + book.getType());
                         System.out.print("수정할 내용 : ");
                         book.setType(scan.next());
                         break;
