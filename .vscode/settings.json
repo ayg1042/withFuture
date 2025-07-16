@@ -3,5 +3,6 @@
         "."
     ],
     "java.project.outputPath": "Java_build_output",
-    "java.project.referencedLibraries": []
+    "java.jdt.ls.vmargs": "-javaagent:lib/lombok.jar",
+    "java.project.referencedLibraries": ["lib/lombok.jar"]
 }

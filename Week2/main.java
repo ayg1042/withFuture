@@ -25,7 +25,7 @@ public class main {
                     bd.add_book();
                     break;
                 case "4":
-                    bd.update();
+                    bd.update2();
                     break;
                 case "5":
                     bd.delete();

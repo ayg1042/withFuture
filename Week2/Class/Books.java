@@ -1,9 +1,13 @@
 package Week2.Class;
 
 import java.util.UUID;
+import lombok.*;
 
+@Getter
+@Setter
+@EqualsAndHashCode
+@AllArgsConstructor
 // key는 java.util.UUID.randomUUID();
-
 public class Books {
     private UUID key;
     private String book_name;
@@ -25,36 +29,15 @@ public class Books {
         this.type = titles[2];
 	}
 
+	public Books(Books other) {
+		this.key = UUID.randomUUID();
+		this.book_name = other.book_name;
+		this.author = other.author;
+		this.type = other.type;
+	}
+
     public void print(){
         System.out.println("Key : " + this.key + ", 제목 : " + this.book_name + ", 제작자 : " + this.author + ", 타입(장르, 종류) : " + this.type);
     }
-
-	public UUID getKey() {
-		return this.key;
-	}
-
-	public String getAuthor() {
-		return this.author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public String getBook_name() {
-		return this.book_name;
-	}
-
-	public void setBook_name(String book_name) {
-		this.book_name = book_name;
-	}
-
-	public String getType() {
-		return this.type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 }

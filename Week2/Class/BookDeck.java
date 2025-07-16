@@ -6,9 +6,13 @@ import java.util.List;
 
 import java.util.Scanner;
 import java.util.UUID;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
-import Week1.Class.Books;
+import Week2.Class.Books;
     /*
         1) 전체 조회
         2) key로 조회
@@ -94,11 +98,21 @@ public class BookDeck {
             titles[i] = scan.next();
         });
 
-        book_list.add(new Books(titles));
+        // 2week _ 수정
+        // book_list.add(new Books(titles));
+
+        // steam으로 변경을 해서
+        // 값을 추가하고 다시 book_list로 변환
+        book_list = Stream.concat(
+            book_list.stream(), 
+            Stream.of(new Books(titles))
+            )
+            .collect(Collectors.toCollection(ArrayList::new));
 
     }
 
     // 수정
+    // 2week _ 수정
     public void update(){
         show_all();
         boolean check = false;
@@ -150,11 +164,40 @@ public class BookDeck {
         }
     }
 
+    public void update2(){
+        show_all();
+        Books uda = find_book();
+        ArrayList<Consumer<String>> test = new ArrayList<>();
+        test.add(uda::setBook_name);
+        test.add(uda::setAuthor);
+        test.add(uda::setType);
+        
+        IntStream.range(0, title.length).forEach(
+            i -> 
+            {
+                System.out.println("수정할 내용 " + title[i]);
+                test.get(i).accept(scan.next());
+            }
+        );
+
+    }
+
     // 삭제
+    // 2week _ 수정
+    // 다시 진행.
+    // booklist -> Steam으로 해서
+    // 삭제해서 booklist로 다시 만들기.
     public void delete(){
         Books book = find_book();
         if(book != null){
-            book_list.remove(book);
+            // 2주차 수정내용
+            // book_list.remove(book);
+
+            book_list = book_list.stream()
+                .filter(a -> a != book)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+
             System.out.println("삭제 되었습니다.");
         }else{
             System.out.println("Key값을 확인하세요.");
